@@ -13,6 +13,9 @@ Database changed
 mysql> CREATE TABLE heads (id INT, room VARCHAR(20), count INT, ts TIMESTAMP NULL
 
 ```
+
+firewall check
+```service iptables stop```
 ## Project setup
 ```
 npm install
