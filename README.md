@@ -14,7 +14,7 @@ mysql> CREATE TABLE heads (id INT, room VARCHAR(20), count INT, ts TIMESTAMP NUL
 
 ```
 
-firewall check
+## Firewall check
 ```service iptables stop```
 ## Project setup
 ```
