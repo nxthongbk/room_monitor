@@ -1,0 +1,22 @@
+{
+"books":
+	[
+		{
+			"name":"sách 1",
+            "type":1,
+            "free":1,
+            "view":1,
+            "image":"book.jpg",
+            "data":"sach1.json"
+		
+		},
+		{
+			"name":"sách 2",
+            "type":1,
+            "free":1,
+            "view":1,
+            "image":"book.jpg",
+            "data":"sach2.json"
+        }
+	]
+}
