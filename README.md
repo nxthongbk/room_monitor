@@ -1,7 +1,7 @@
 
 ## APIs
-### Devices
-APIs for device:
+### Meeting
+APIs for get data:
 
 |  API  | Type | Syntax |Payload
 | ------ | ------ | ------| ------|
