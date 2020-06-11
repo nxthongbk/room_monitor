@@ -8,6 +8,6 @@ APIs for get data:
 | Insert new data | POST | 119.82.135.244:3000/heads|{	"room":"room1",	"count":3}
 
 ## Examples
-Insert new record: example/update_heads_room.py
-Get Status: example/get_heads_data.py
+Insert new record: ```example/update_heads_room.py```
+Get Status: ```example/get_heads_data.py```
 
