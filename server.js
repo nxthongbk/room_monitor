@@ -1,67 +1,55 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const port = 3000
+require('dotenv').config()
 
-const app = express();
+var path = require("path");
+app.use(express.static("public"));
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "public"))); // serve static resource
 
-app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-app.use(express.static(__dirname + '/public'));
-
-// database
-const db = require("./app/models");
-const Role = db.role;
-
-
-
-db.sequelize.sync();
-// force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Database with { force: true }');
-//   initial();
-// });
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to sw application." });
+app.set('view engine', 'ejs');
+// index page 
+app.get('/', function(req, res) {
+    res.render('pages/index');
 });
 
-// routes
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
-require('./app/routes/book.routes')(app);
 
-// set port, listen for requests
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
 
-function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
-  });
- 
-  Role.create({
-    id: 2,
-    name: "moderator"
-  });
- 
-  Role.create({
-    id: 3,
-    name: "admin"
-  });
-}
+
+let routes = require('./api/routes') //importing route
+routes(app)
+
+app.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'})
+})
+
+// var server = require("http").Server(app);
+// var io = require("socket.io")(server);
+
+
+app.listen(port, () => console.log('Example app listening at http://localhost:${port}'))
+
+
+
+// var server = http.createServer(app);
+// var io = require('socket.io').listen(server);  //pass a http.Server instance
+// server.listen(8080);  //listen on port 80
+
+
+
+
+//var io = require("socket.io")(server);
+//server.listen(3000);
+
+// server = require('http').createServer(app),
+// io = require('socket.io').listen(server),
+
+// server.listen(443);
+// app.listen(443);
+// console.log('RESTful API server started on: 443' )
