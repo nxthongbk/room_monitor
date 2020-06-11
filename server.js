@@ -20,8 +20,6 @@ app.get('/', function(req, res) {
 });
 
 
-
-
 let routes = require('./api/routes') //importing route
 routes(app)
 
@@ -29,27 +27,5 @@ app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 })
 
-// var server = require("http").Server(app);
-// var io = require("socket.io")(server);
+app.listen(port, () => console.log('App listening at http://localhost:${port}'))
 
-
-app.listen(port, () => console.log('Example app listening at http://localhost:${port}'))
-
-
-
-// var server = http.createServer(app);
-// var io = require('socket.io').listen(server);  //pass a http.Server instance
-// server.listen(8080);  //listen on port 80
-
-
-
-
-//var io = require("socket.io")(server);
-//server.listen(3000);
-
-// server = require('http').createServer(app),
-// io = require('socket.io').listen(server),
-
-// server.listen(443);
-// app.listen(443);
-// console.log('RESTful API server started on: 443' )
