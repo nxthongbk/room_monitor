@@ -14,6 +14,10 @@ module.exports = function(app) {
     .put(headsCtrl.update)
     .delete(headsCtrl.delete);
 
+   app.route('/global')
+    .get(headsCtrl.global);
+    
+
   // todoList Routes
   app.route('/dashboard')
     .get(pagesCtrl.get);

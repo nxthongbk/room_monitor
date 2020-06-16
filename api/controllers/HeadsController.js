@@ -8,8 +8,14 @@ const table = 'head'
 
 module.exports = {
     get: (req, res) => {
-        let sql = 'SELECT * FROM heads ORDER BY id DESC'
-        db.query(sql, (err, response) => {
+        let sql = 'SELECT * FROM heads ORDER BY id DESC LIMIT ?, ?;'
+   
+        console.log(req.query.limit)
+
+        const limit =parseInt(req.query.limit) >= 1 ? parseInt(req.query.limit) : 100;
+        const offset =parseInt(req.query.offset) >= 1 ? parseInt(req.query.offset) : 0;
+
+        db.query(sql,[offset,limit] ,(err, response) => {
             if (err) throw err
             res.json(response)
         })
@@ -22,6 +28,15 @@ module.exports = {
         db.query(sql, [req.params.headId], (err, response) => {
             if (err) throw err
             res.json(response[0])
+        })
+    },
+
+    global: (req, res) => {
+
+         let sql =  'SELECT *  FROM heads  WHERE id IN (SELECT MAX(id) FROM heads GROUP BY room);'
+           db.query(sql, (err, response) => {
+            if (err) throw err
+            res.json(response)
         })
     },
 
@@ -44,6 +59,8 @@ module.exports = {
         })
     },
     store: (req, res) => {
+
+        
         let data = req.body;
         let sql = 'INSERT INTO heads SET ?'
         db.query(sql, [data], (err, response) => {
