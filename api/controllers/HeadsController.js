@@ -19,11 +19,21 @@ module.exports = {
 
     detail: (req, res) => {
         let sql = 'SELECT * FROM heads WHERE id = ?'
-        db.query(sql, [req.params.productId], (err, response) => {
+        db.query(sql, [req.params.headId], (err, response) => {
             if (err) throw err
             res.json(response[0])
         })
     },
+
+    lastest: (req, res) => {
+        console.log(req.params.headId);
+        let sql = 'SELECT * FROM heads WHERE room = ? ORDER BY id DESC'
+        db.query(sql, [req.params.headId], (err, response) => {
+            if (err) throw err
+            res.json(response[0])
+        })
+    },
+
     update: (req, res) => {
         let data = req.body;
         let productId = req.params.productId;
