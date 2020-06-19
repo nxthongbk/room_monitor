@@ -57,7 +57,7 @@
             <div class="navbar-header">
                 <div class="top-left-part">
                     <!-- Logo -->
-                    <a class="logo" href="dashboard.html">
+                    <a class="logo" href="/dashboard">
                         <!-- Logo icon image, you can use font-icon also -->
                         <b>
                             <!--This is dark logo icon-->
@@ -88,7 +88,7 @@
                         </form>
                     </li>
                     <li>
-                        <a class="profile-pic" href="#"> <img src="../plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Dat</b></a>
+                        <a class="profile-pic" href="#"> <img src="../plugins/images/admin_avatar.png" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Admin</b></a>
                     </li>
                 </ul>
             </div>
@@ -170,36 +170,7 @@
             
                 </div>
                 
-                <div class="row">
-                    <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h6 class="panel-title">Room Monitoring</h6>
-                <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Room Name" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Count" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Time" disabled></th>
-                    </tr>
-                </thead>
-                <%for(var i=0;i<20;i++){%>
-                                        <tr>
-                                            <td><%=i+1%></td>
-                                            
-                                            <td><%= data[i].room %></td>
- 
-                                            <td><span class="text-success"><%= data[i].count %></span></td>
-                                            <td class="txt-oflo"><%= data[i].ts %></td>
-                                        </tr>
-                                     <% } %>  
-                </table>
-        </div>
-                </div>
+            
                 
             </div>
             <!-- /.container-fluid -->
