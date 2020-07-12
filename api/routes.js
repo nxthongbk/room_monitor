@@ -8,21 +8,32 @@ module.exports = function(app) {
     .get(headsCtrl.get)
     .post(headsCtrl.store);
 
-
   app.route('/heads/:headId')
     .get(headsCtrl.lastest)
     .put(headsCtrl.update)
     .delete(headsCtrl.delete);
 
-   app.route('/global')
+  app.route('/global')
     .get(headsCtrl.global);
     
+  app.route('/')
+    .get(pagesCtrl.signin);
+  
+  app.route('/signin')
+    .get(pagesCtrl.signin);
 
-  // todoList Routes
+  app.route('/signup')
+    .get(pagesCtrl.signup);
+
+  app.route('/register')
+    .post(pagesCtrl.register);
+
+  app.route('/login')
+    .post(pagesCtrl.login);
+  
   app.route('/dashboard')
     .get(pagesCtrl.get);
   
-
   app.route('/statictis')
     .get(pagesCtrl.statictis)
   };
