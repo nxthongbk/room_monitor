@@ -15,6 +15,7 @@ module.exports = {
 
         var user =  req.session.user,
         userId = req.session.userId;
+        var username = req.session.username;
     
         if(userId == null){
             res.redirect("/signin");
@@ -39,6 +40,7 @@ module.exports = {
             //res.json(response)
              res.render('pages/dashboard', { 
                 rooms :rooms,
+                username: username,
                 data: response
             });  
             
@@ -49,6 +51,7 @@ module.exports = {
 
        var user =  req.session.user,
         userId = req.session.userId;
+        var username = req.session.username;
     
         if(userId == null){
             res.redirect("/signin");
@@ -74,6 +77,7 @@ module.exports = {
             //res.json(response)
              res.render('pages/statictis', { 
                 rooms :rooms,
+                username: username,
                 data: response
             });  
             
@@ -81,16 +85,85 @@ module.exports = {
     },
 
     signin: (req, res) => {
-
+        var userId = req.session.userId;
+        var username = req.session.username;
         var message = '';
+          if(userId == null){
+            res.render('pages/signin', {message: message});  
+            return;
+        }
+       
+        let sql =  'SELECT *  FROM heads  WHERE id IN (SELECT MAX(id) FROM heads GROUP BY room);'
+           db.query(sql, (err, response) => {
+            if (err) throw err
+            //res.json(response)
+                console.log(response);
+                rooms = response
+            //  res.render('pages/dashboard', { 
+            //     rooms: response
+            // });  
+            
+        })
 
-        res.render('pages/signin', {message: message});  
+        sql = 'SELECT * FROM heads ORDER BY id DESC'
+        db.query(sql, (err, response) => {
+            if (err) throw err
+            //res.json(response)
+             res.render('pages/dashboard', { 
+                rooms :rooms,
+                username: username,
+                data: response
+            });  
+            
+        })
+
+
+        //res.redirect("/signin");
+
+
+
+        
             
     },
     signup: (req, res) => {
+    
+       
+
+
+        var userId = req.session.userId;
+        var username = req.session.username;
         var message = '';
-     
-        res.render('pages/signup',{message: ''});
+          if(userId == null){
+            res.render('pages/signup',{message: ''});
+            return;
+        }
+       
+        let sql =  'SELECT *  FROM heads  WHERE id IN (SELECT MAX(id) FROM heads GROUP BY room);'
+           db.query(sql, (err, response) => {
+            if (err) throw err
+            //res.json(response)
+                console.log(response);
+                rooms = response
+            //  res.render('pages/dashboard', { 
+            //     rooms: response
+            // });  
+            
+        })
+
+        sql = 'SELECT * FROM heads ORDER BY id DESC'
+        db.query(sql, (err, response) => {
+            if (err) throw err
+            //res.json(response)
+             res.render('pages/dashboard', { 
+                rooms :rooms,
+                username: username,
+                data: response
+            });  
+            
+        })
+
+
+
       
         },
     register: (req, res) => {
@@ -139,6 +212,7 @@ module.exports = {
             if(response.length){
                  console.log(response[0].id);
                  req.session.userId = response[0].id;
+                 req.session.username = response[0].username;
                  req.session.user = response[0];
                  
                 res.redirect('/dashboard');
@@ -149,18 +223,9 @@ module.exports = {
                 res.redirect('/signin');
             }     
         })
-        }
-
-
-
-
-
-
-
-
-
-
-
-    
-    
+        },
+    logout: (req, res) => {
+            req.session.destroy();
+            res.redirect('/signin');
+        },    
 }

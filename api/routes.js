@@ -30,6 +30,8 @@ module.exports = function(app) {
 
   app.route('/login')
     .post(pagesCtrl.login);
+  app.route('/logout')
+    .get(pagesCtrl.logout);
   
   app.route('/dashboard')
     .get(pagesCtrl.get);
